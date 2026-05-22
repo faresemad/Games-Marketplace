@@ -19,7 +19,7 @@ DATABASES = {
 
 FRONTEND_URL = "https://localhost.com:3000"
 DEFAULT_FROM_EMAIL = "noreply@your-domain.com"
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 AUTHENTICATION_BACKENDS = [
     "auth_system.authentication.EmailAuthBackend",
