@@ -12,9 +12,16 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+import environ
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+env_file = BASE_DIR / ".env"
+
+if env_file.exists():
+    env = environ.Env()
+    env.read_env(env_file)
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -27,10 +34,17 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
+    "drf_spectacular",
     "auth_system",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
+LOCAL_APPS = [
+    "apps.users",
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -43,6 +57,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
+
+AUTH_USER_MODEL = "users.CustomUser"
 
 TEMPLATES = [
     {
